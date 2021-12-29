@@ -1,0 +1,21 @@
+{% extends 'layout/layout.twig' %}
+{% set active_page = 'project' %}
+{% set title = 'Добавление сотрудника на проект: ' ~ project.name %}
+
+{% block content %}
+    {{ include('parts/error.twig') }}
+    <form method="post">
+        <input type="hidden" name="project_id" value="{{ project.id }}">
+        <div class="mb-3">
+            <label for="employee_id" class="form-label">Сотрудник</label>
+            <select class="form-select" id="employee_id" name="employee_id">
+                <option>Не указан</option>
+                {% for employee in employees %}
+                    <option value="{{ employee.id }}"
+                            {% if form.employeeId == employee.id %}selected{% endif %}>{{ employee.lastName }} {{ employee.firstName }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+{% endblock %}

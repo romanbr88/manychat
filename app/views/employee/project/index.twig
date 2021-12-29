@@ -1,0 +1,36 @@
+{% extends 'layout/layout.twig' %}
+{% set active_page = 'employee' %}
+{% set title = 'Проекты сотрудника: ' ~ employee.lastName ~ ' ' ~ employee.firstName %}
+
+{% block content %}
+    <a href="/employee/{{ employee.id }}/project/add" class="btn btn-primary mb-2">Добавить проект сотруднику</a>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Название</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for project in projects %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ project.name }}</td>
+                    <td>
+                        <a href="/employee/{{ employee.id }}/project/delete/{{ project.id }}" title="Удалить проект у сотрудника" class="ml-2 text-decoration-none"
+                           data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <span data-feather="trash-2"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <div class="alert alert-warning">
+                    У сотрудника нет проектов
+                </div>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends 'layout/layout.twig' %}
+{% set active_page = 'project' %}
+{% set title = 'Редактирование проекта: ' ~ form.name %}
+
+{% block content %}
+{{ include('project/form.twig') }}
+{% endblock %}

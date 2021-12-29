@@ -1,0 +1,51 @@
+<database name="manychat" defaultIdMethod="native"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.6/database.xsd"
+          namespace="app\models"
+        >
+
+    <table name="department" phpName="Department">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="name" type="varchar" size="255" required="true"/>
+        <behavior name="timestampable"/>
+    </table>
+
+    <table name="project" phpName="Project">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="name" type="varchar" size="255" required="true"/>
+        <behavior name="timestampable"/>
+    </table>
+
+    <table name="employee" phpName="Employee">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="first_name" type="varchar" size="255" required="true"/>
+        <column name="last_name" type="varchar" size="255" required="true"/>
+        <column name="gender" type="char" required="true"/>
+        <column name="birthday" type="date"/>
+        <column name="salary" type="float"/>
+        <column name="department_id" type="integer"/>
+        <behavior name="timestampable"/>
+
+        <foreign-key foreignTable="department" onDelete="setnull">
+            <reference local="department_id" foreign="id"/>
+        </foreign-key>
+    </table>
+
+    <table name="project_employee" phpName="ProjectEmployee">
+        <column name="project_id" type="integer" required="true"/>
+        <column name="employee_id" type="integer" required="true"/>
+
+        <foreign-key foreignTable="project" onDelete="cascade">
+            <reference local="project_id" foreign="id"/>
+        </foreign-key>
+
+        <foreign-key foreignTable="employee" onDelete="cascade">
+            <reference local="employee_id" foreign="id"/>
+        </foreign-key>
+
+        <unique name="IX_project_employee">
+            <unique-column name="project_id"/>
+            <unique-column name="employee_id"/>
+        </unique>
+    </table>
+</database>

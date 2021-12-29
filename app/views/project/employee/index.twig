@@ -1,0 +1,46 @@
+{% extends 'layout/layout.twig' %}
+{% set active_page = 'project' %}
+{% set title = 'Сотрудники проекта: ' ~ project.name %}
+
+{% block content %}
+    <a href="/project/{{ project.id }}/employee/add" class="btn btn-primary mb-2">Добавить сотрудника на проект</a>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
+                <th scope="col">Пол</th>
+                <th scope="col">Дата рождения</th>
+                <th scope="col">Зарплата</th>
+                <th scope="col">Отдел</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for employee in employees %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ employee.firstName }}</td>
+                    <td>{{ employee.LastName }}</td>
+                    <td>{{ employee.getFormatGender }}</td>
+                    <td>{{ employee.getBirthday('Y-m-d') }}</td>
+                    <td>{{ employee.salary }}</td>
+                    <td>{{ employee.department.name }}</td>
+                    <td>
+                        <a href="/project/{{ project.id }}/employee/delete/{{ employee.id }}" title="Удалить сотрудника из проекта" class="ml-2 text-decoration-none"
+                           data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <span data-feather="trash-2"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <div class="alert alert-warning">
+                    На проекте нет сотрудников
+                </div>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

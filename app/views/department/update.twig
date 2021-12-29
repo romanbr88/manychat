@@ -1,0 +1,7 @@
+{% extends 'layout/layout.twig' %}
+{% set active_page = 'department' %}
+{% set title = 'Редактирование отдела: ' ~ form.name %}
+
+{% block content %}
+{{ include('department/form.twig') }}
+{% endblock %}

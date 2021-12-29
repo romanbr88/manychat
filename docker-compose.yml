@@ -1,0 +1,32 @@
+version: '2'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+    - ./app/config/docker/nginx:/etc/nginx/conf.d
+    - ./:/var/www/manychat
+    - ./logs:/var/log/nginx
+    links:
+      - php
+  php:
+    build: ./app/config/docker
+    environment:
+      PROJECT_DIR: /var/www/manychat
+    volumes:
+      - ./:/var/www/manychat
+    links:
+      - postgres
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:14.1
+    ports:
+    - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=manychat
+    volumes:
+    - ./app/config/propel/generated-sql/:/docker-entrypoint-initdb.d

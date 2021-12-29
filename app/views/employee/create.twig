@@ -1,0 +1,7 @@
+{% extends 'layout/layout.twig' %}
+{% set active_page = 'employee' %}
+{% set title = 'Добавление сотрудника' %}
+
+{% block content %}
+    {{ include('employee/form.twig') }}
+{% endblock %}

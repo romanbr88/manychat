@@ -1,0 +1,10 @@
+{% if form.getErrors %}
+    <div class="alert alert-danger">
+        <p>Обнаружены ошибки в заполнении формы:</p>
+        <ul>
+            {% for error in form.getErrors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
